@@ -55,3 +55,42 @@ h3c,magic-nx30-pro|\
 imou,lc-hx3001|\
 ~~~
 切记不要重启路由器。
+8.上传固件immortalwrt-24.10.0-mediatek-filogic-cudy_tr3000-v1-ubootmod-squashfs-sysupgrade.itb到tmp文件夹
+~~~
+sysupgrade -n /tmp/immortalwrt-24.10.0-mediatek-filogic-cudy_tr3000-v1-ubootmod-squashfs-sysupgrade.itb
+~~~
+
+## 安装tailscale
+1.下载tailscale最新版压缩包，上传到tmp文件夹,解压缩tailscale
+~~~
+tar x -zvC / -f openwrt-tailscale-enabler-v1.60.0-e428948-autoupdate.tgz
+~~~
+2.安装依赖包
+~~~
+opkg update
+opkg install libustream-openssl ca-bundle kmod-tun
+~~~
+3.运行tailscale
+~~~
+/etc/init.d/tailscale start
+tailscale up --accept-dns=false --advertise-routes=10.0.0.0/24
+~~~
+4.设置开机启动，验证开机启动
+~~~
+/etc/init.d/tailscale enable
+ls /etc/rc.d/S*tailscale*
+~~~
+5.获取登陆链接
+~~~
+tailscale up
+~~~
+5.开启子路由，禁用自动过期
+6.添加接口
+在OpenWrt上新建一个接口，协议选静态地址，设备选tailscale0，地址为Taliscale管理页面上分配的地址，掩码255.0.0.0。防火墙区域选lan区域。
+7.添加防火墙规则
+将以下内容，加到防火墙的自定义规则当中，并重启防火墙。
+iptables -I FORWARD -i tailscale0 -j ACCEPT
+iptables -I FORWARD -o tailscale0 -j ACCEPT
+iptables -t nat -I POSTROUTING -o tailscale0 -j MASQUERADE
+现在各个Tailscale节点之间已经可以正常互访了。
+
