@@ -27,8 +27,8 @@ MESH组网:支持
 
 ## 操作步骤：
 1. 高级设置-固件升级 上传openwrt中间固件cudy_tr3000-v1-sysupgrade.bin
-2. 刷机完成后，访问192.168.1.1，系统-备份与升级-刷写固件 上传immortalwrt固件immortalwrt-24.10.0-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin
-3. SSH设备，解锁 MTD 分区
+3. 刷机完成后，访问192.168.1.1，系统-备份与升级-刷写固件 上传immortalwrt固件immortalwrt-24.10.0-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin
+4. SSH设备，解锁 MTD 分区
 ~~~
 opkg update
 opkg install kmod-mtd-rw
@@ -40,3 +40,8 @@ cd /tmp
 mtd write immortalwrt-24.10.0-mediatek-filogic-cudy_tr3000-v1-ubootmod-preloader.bin BL2
 mtd write immortalwrt-24.10.0-mediatek-filogic-cudy_tr3000-v1-ubootmod-bl31-uboot.fip FIP
 ~~~
+5.电脑设置静态IP
+IP 地址: 192.168.1.254
+子网掩码: 255.255.255.0
+网关: 192.168.1.1（设备默认网关）
+6.将
