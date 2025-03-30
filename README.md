@@ -46,12 +46,12 @@ IP 地址: 192.168.1.254
 网关: 192.168.1.1（设备默认网关）
 6.关闭电脑防火墙，将immortalwrt-mediatek-filogic-cudy_tr3000-v1-ubootmod-initramfs-recovery.itb 放到tftpd64根目录下，并打开tftpd64，拔掉电源，设备自动进入恢复模式
 7.使用ssh登录路由器，vi /lib/upgrade/platform.sh，在下面这个位置添加这么一行：
-### cmcc,a10|\
-### cmcc,rax3000m|\
 ~~~
+cmcc,a10|\
+cmcc,rax3000m|\
 cudy,tr3000-v1-ubootmod|\
+gatonetworks,gdsp|\
+h3c,magic-nx30-pro|\
+imou,lc-hx3001|\
 ~~~
-### gatonetworks,gdsp|\
-### h3c,magic-nx30-pro|\
-### imou,lc-hx3001|\
 切记不要重启路由器。
